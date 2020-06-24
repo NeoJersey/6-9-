@@ -1,0 +1,34 @@
+---
+title: "每年6~9月欧元汇率"
+author: "Zexi Liu"
+date: "6/24/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r cars}
+library(lubridate)
+library(ggplot2)
+
+cny2euro <- read.csv('/Users/jersey/Downloads/EUR_CNY历史数据.csv', header
+         = TRUE, sep = ',')
+
+cny2euro$date <- as.Date(cny2euro$date, '%Y/%m/%d')
+cny2euro$date2 <- format(cny2euro$date, format = '%m/%d')
+cny2euro$year <- year(cny2euro$date)
+cny2euro$month <- month(cny2euro$date)
+May2July <- cny2euro[cny2euro$month>5,]
+May2July <- May2July[May2July$month<10,]
+May2July <- May2July[May2July$year>2015,]
+May2July <- May2July[May2July$year<2020,]
+
+qplot(x = date2, y = price,  facets = year~., data = May2July )
+#test
+
+```
+
+没有看出明显趋势
